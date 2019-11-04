@@ -1,0 +1,67 @@
+Table texts as X {
+  id int [pk, increment]
+  author varchar
+  title varchar [not null]
+  year date
+  type varchar [not null]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table sentences as S {
+  id int [pk, increment]
+  text_id int [ref: > X.id]
+  value varchar [not null]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table dialects as D {
+  id int [pk, increment]
+  name varchar [not null]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table tokens as T {
+  id int [pk, increment]
+  value varchar [not null]
+  dialect_id int [ref: > D.id]
+  seen boolean [default: false]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table illustrations as I {
+  token_id int [ref: > T.id]
+  sentence_id int [ref: > S.id]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table lexemes as L {
+  id int [pk, increment]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
+
+Table inflections as F {
+  token_id int [ref: > T.id]
+  lexeme_id int [ref: > L.id]
+  active boolean [default: true]
+
+  created_at datetime
+  updated_at datetime
+}
