@@ -6,15 +6,15 @@ default: &default
 
 development:
   <<: *default
-  username: kambolov
-  password: tamerlan
+  username: postgres
+  password: 
   database: dzyrdwatify
 
-test:
+development:
   <<: *default
-  username: dw_test
-  password: dw_test
-  database: dw_test
+  username: postgres
+  password: 
+  database: dzyrdwatify
 
 production:
   adapter: postgresql
