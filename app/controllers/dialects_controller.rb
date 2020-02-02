@@ -1,0 +1,2 @@
+class DialectsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class Dialect < ApplicationRecord
+end
