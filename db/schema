@@ -1,67 +1,62 @@
+Table dialects as D {
+  id smallint [pk, increment]
+  name varchar [not null]
+  active boolean [not null, default: true]
+
+  created_at timestamp
+  updated_at timestamp
+}
+
 Table texts as X {
   id int [pk, increment]
   author varchar
   title varchar [not null]
+  is_magazine boolean [not null, default: false]
   year date
-  type varchar [not null]
-  active boolean [default: true]
+  dialect_id smallint [not null, ref: > D.id]
+  active boolean [not null, default: true]
 
-  created_at datetime
-  updated_at datetime
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table sentences as S {
   id int [pk, increment]
   text_id int [ref: > X.id]
-  value varchar [not null]
-  active boolean [default: true]
+  sentence varchar [not null]
+  ord int [not null]
+  active boolean [not null, default: true]
 
-  created_at datetime
-  updated_at datetime
-}
-
-Table dialects as D {
-  id int [pk, increment]
-  name varchar [not null]
-  active boolean [default: true]
-
-  created_at datetime
-  updated_at datetime
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table tokens as T {
   id int [pk, increment]
-  value varchar [not null]
-  dialect_id int [ref: > D.id]
-  seen boolean [default: false]
-  active boolean [default: true]
+  token varchar [not null]
+  dialect_id int [not null, ref: > D.id]
+  seen boolean [not null, default: false]
+  is_lexeme boolean [not null, default: false]
+  active boolean [not null, default: true]
 
-  created_at datetime
-  updated_at datetime
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table illustrations as I {
-  token_id int [ref: > T.id]
-  sentence_id int [ref: > S.id]
-  active boolean [default: true]
+  token_id int [not null, ref: > T.id]
+  sentence_id int [not null, ref: > S.id]
+  active boolean [not null, default: true]
 
-  created_at datetime
-  updated_at datetime
-}
-
-Table lexemes as L {
-  id int [pk, increment]
-  active boolean [default: true]
-
-  created_at datetime
-  updated_at datetime
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table inflections as F {
-  token_id int [ref: > T.id]
-  lexeme_id int [ref: > L.id]
-  active boolean [default: true]
+  token_id int [not null, ref: > T.id]
+  lexeme_id int [not null, ref: > T.id]
+  active boolean [not null, default: true]
 
-  created_at datetime
-  updated_at datetime
+  created_at timestamp
+  updated_at timestamp
 }
