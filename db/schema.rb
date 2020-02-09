@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_02_211528) do
+ActiveRecord::Schema.define(version: 2020_02_09_101035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dialects", force: :cascade do |t|
     t.string "name", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sentences", force: :cascade do |t|
+    t.integer "text_id", null: false
+    t.string "sentence", null: false
+    t.integer "ord", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "texts", force: :cascade do |t|
+    t.string "author"
+    t.string "title", null: false
+    t.boolean "is_magazine", default: false, null: false
+    t.integer "year"
+    t.integer "dialect_id", null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
